@@ -95,7 +95,7 @@ async function deploy() {
       admin: config.admin.publicKey(),
       name: pool_name,
       salt: poolSalt,
-      oracle: addressBook.getContractId('oracle'),
+      oracle: addressBook.getContractId('oraclemock'),
       backstop_take_rate: backstop_take_rate,
       max_positions: max_positions,
       min_collateral: min_collateral,
