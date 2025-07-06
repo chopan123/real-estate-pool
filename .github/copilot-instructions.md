@@ -2,6 +2,11 @@
 
 ## Context
 Este proyecto utiliza tecnologías blockchain, específicamente Blend y Stellar SDK para JavaScript. El objetivo es desarrollar aplicaciones seguras, eficientes y bien documentadas que interactúen con la red Stellar y/o Blend.
+El proyecto forma parte de una hackaton, por lo que la solución que buscamos no debe ser perfecta, pero sí ser funcional y tener sentido.
+El proyecto consiste en generar un pool de inversión, que sirva para dar prestamos a personas que quieren comprar 
+tokens de propiedades inmobiliarias, y que a su vez, los inversores puedan obtener un retorno por su inversión. Los compradores de 
+tokens de propiedades inmobiliarias, deben dejar un colateral, que a priori será en tokens inmobiliarios.
+
 
 ## Reglas Generales
 - Usa la doumentación #fetch https://stellar.github.io/js-stellar-sdk/ y la de #fetch https://stellar.github.io/js-stellar-base/index.html
