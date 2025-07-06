@@ -1,0 +1,16 @@
+services:
+  real-estate-pool:
+    image: esteblock/soroban-preview:22.0.1@sha256:186404e5df5d0a791d31807958486ef1d5549c1bc90e96ebabb7cc0fdd195740
+    container_name: real-estate-pool
+    volumes:
+      - .:/workspace
+    env_file:
+      - .env
+    ipc: host
+    networks:
+      - real-estate-pool-network
+    command: tail -f /dev/null
+
+networks:
+  real-estate-pool-network:
+    driver: bridge
