@@ -1,3 +1,10 @@
+# 
+- Choosing of ReserveMetadata
+- why we choose 63 tokens.
+- We will deploy backstop later
+- 
+
+
 # blend-utils
 
 Deployment and utility scripts for interacting with the Blend Protocol and setting up mock environments.
