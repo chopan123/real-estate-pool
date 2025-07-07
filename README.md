@@ -2,7 +2,73 @@
 - Choosing of ReserveMetadata
 - why we choose 63 tokens.
 - We will deploy backstop later
-- 
+
+
+To execute do
+```
+npm run start testner
+```
+
+## Vision
+
+We envision a world where anyone can invest in real-world assets like real estate and access liquidity seamlessly, without being limited by geographic borders.
+
+## Details
+
+### Problem that solves
+
+Accessing liquidity is often a challenge for those who have invested in tokens backed by real estate. Unlike traditional financial assets, which banks can easily accept as collateral for loans, tokenized real estate is not yet widely accepted in lending systems. Additionally, real estate in general is not a liquid asset — selling property takes time and involves significant friction.
+
+At the same time, some investors would like to leverage their existing assets to take advantage of attractive investment opportunities.
+
+On the other hand, there are people interested in gaining exposure to the real estate market but who lack the time or expertise to evaluate individual projects. Many of them would be willing to lend their capital to a real estate investment fund, attracted by its perceived stability and long-term value.
+
+### Solution
+
+We leverage Blend Capital’s technology by utilizing their pool smart contracts, specifically configured to support the real estate market.
+
+Each pool is designed to hold a stablecoin like USDC alongside multiple real estate tokens, allowing users to own and interact with a diversified portfolio of tokenized properties.
+
+Oracle networks determine the value of each real estate token based on appraisals conducted by certified valuation companies. These appraised values are then submitted and recorded on-chain.
+
+The parameters within the Reserves of the pools are carefully chosen to incentivize the use of USDC as the primary borrowable asset, while real estate tokens serve as collateral.
+
+### Technical Overview
+
+We forked the `blend-utils` repository and made the following modifications:
+
+- Created and minted USDC and multiple Real Estate Tokens (RETs).
+- Modified the Oracle to set the prices for each RET based on on-chain appraisals.
+- Customized the pool parameters to suit the real estate market use case.
+
+#### Pool Configuration
+
+- **Liability factor** for Real Estate Tokens is set to `0`, since they are not intended to be borrowed.
+- **Collateral factor** for RETs is set high, reflecting their relatively low risk.
+- **USDC** is configured as a **borrowable asset**, with a high collateral factor to encourage its usage.
+- **Interest rate slopes** were selected based on utilization levels:
+
+#### Interest Rate Models
+
+- **IR_1** (for Real Estate Tokens — low-utilization asset):
+  - `U_T = 0.5`
+  - `R_1 = 0.05`
+  - `R_2 = 0.25`
+  - `R_3 = 0.5`
+
+- **IR_2** (for USDC — high-utilization asset):
+  - `U_T = 0.85`
+  - `R_1 = 0.05`
+  - `R_2 = 0.15`
+  - `R_3 = 0.5`
+
+#### Backstop (Assurance Pool)
+
+The assurance mechanism (Backstop) for the pool will be deployed as a separate project.
+
+### Results
+
+The deployed pool can be found [here](https://stellar.expert/explorer/testnet/contract/CA35VL3IZBX4J225KRBZ62AFPCXBF2LKXOZHM77HCZFG6LY2B4YHXOAG/storage) with its ledger entries modified.
 
 
 # blend-utils
