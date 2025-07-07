@@ -25,6 +25,7 @@ import { addressBook } from '../../utils/address-book.js';
 import { setupMockOracle } from './oracle-setup.js';
 import { deployCometFactory } from '../../v1/deploy/comet-factory.js';
 import { deployComet } from '../../v1/deploy/comet.js';
+import { TokenContract } from '../../external/token.js';
 
 const NUM_RETS = 9; // Only 9 RETs
 
@@ -72,15 +73,12 @@ export async function mock() {
   const deployedAssets: Record<string, any> = {};
   for (const assetDef of assetDefinitions) {
     const contractIdFromAddressBook = addressBook.getContractId(assetDef.code);
+    const asset = new Asset(assetDef.code, assetDef.issuer);
     if (contractIdFromAddressBook) {
-      // If contract ID exists in addressBook, use it
-      deployedAssets[assetDef.code] = {
-        contractId: () => contractIdFromAddressBook,
-        // Optionally, add more mock methods if needed for compatibility
-      };
+      // If contract ID exists in addressBook, use TokenContract for consistency
+      deployedAssets[assetDef.code] = new TokenContract(contractIdFromAddressBook, asset);
     } else {
       // Otherwise, deploy asset
-      const asset = new Asset(assetDef.code, assetDef.issuer);
       deployedAssets[assetDef.code] = await tryDeployStellarAsset(asset, adminTxParams);
     }
   }
